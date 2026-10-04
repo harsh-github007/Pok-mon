@@ -3,7 +3,7 @@ import {execFileSync} from 'node:child_process';
 mkdirSync('lib',{recursive:true});
 if(!existsSync('lib/price-index.json'))writeFileSync('lib/price-index.json','{}');
 if(!existsSync('public/data/catalog.json')){
- console.log('Importing the physical English and Japanese card catalogue. This requires internet access and may take several minutes.');
+ console.log('Importing English and Japanese cards. Internet access is required.');
  execFileSync(process.execPath,['scripts/sync-catalog.mjs'],{stdio:'inherit'});
  execFileSync(process.execPath,['scripts/sync-prices.mjs'],{stdio:'inherit'});
 }
