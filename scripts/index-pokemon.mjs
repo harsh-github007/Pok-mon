@@ -1,8 +1,8 @@
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 function csv(line){const out=[];let token='',quoted=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){if(quoted&&line[i+1]==='"'){token+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){out.push(token);token='';}else token+=c;}out.push(token);return out;}
 let species;
-if(existsSync('../../work/pokemon-species-names.csv')){
- const map=new Map();for(const line of readFileSync('../../work/pokemon-species-names.csv','utf8').trim().split(/\r?\n/).slice(1)){const [id,lang,name]=csv(line);if(!['9','11','1'].includes(lang))continue;const item=map.get(id)||{id};item[lang==='9'?'name':lang==='11'?'japanese':'kana']=name;map.set(id,item);}
+if(existsSync('.cache/pokemon-species-names.csv')){
+ const map=new Map();for(const line of readFileSync('.cache/pokemon-species-names.csv','utf8').trim().split(/\r?\n/).slice(1)){const [id,lang,name]=csv(line);if(!['9','11','1'].includes(lang))continue;const item=map.get(id)||{id};item[lang==='9'?'name':lang==='11'?'japanese':'kana']=name;map.set(id,item);}
  species=[...map.values()].filter(s=>s.name).sort((a,b)=>a.name.localeCompare(b.name));
  writeFileSync('public/data/species.json',JSON.stringify(species));
 }else species=JSON.parse(readFileSync('public/data/species.json','utf8'));

@@ -1,10 +1,10 @@
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
-mkdirSync('../../work/prices',{recursive:true});
+mkdirSync('.cache/prices',{recursive:true});
 const catalog=JSON.parse(readFileSync('public/data/catalog.json','utf8'));
 const headers={'User-Agent':'PokeLedger/1.0 (personal collection tracker)'};
 const sourceUpdated=await fetch('https://tcgcsv.com/last-updated.txt',{headers}).then(r=>{if(!r.ok)throw Error('Price timestamp unavailable');return r.text()});
-const cacheRoot='../../work/prices/'+sourceUpdated.trim().replace(/[^0-9A-Za-z]/g,'');
+const cacheRoot='.cache/prices/'+sourceUpdated.trim().replace(/[^0-9A-Za-z]/g,'');
 mkdirSync(cacheRoot,{recursive:true});
 const norm=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'');
 const num=s=>s.split('/')[0].trim().replace(/^0+(?=\d)/,'').toLowerCase();

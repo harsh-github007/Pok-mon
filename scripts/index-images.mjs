@@ -1,6 +1,6 @@
 import {readFileSync,writeFileSync,existsSync,readdirSync} from 'node:fs';
 const catalog=JSON.parse(readFileSync('public/data/catalog.json','utf8'));
-const root='../../work/prices/'+readdirSync('../../work/prices').filter(x=>/^\d{8}T/.test(x)).sort().at(-1)+'/';
+const root='.cache/prices/'+readdirSync('.cache/prices').filter(x=>/^\d{8}T/.test(x)).sort().at(-1)+'/';
 const norm=s=>s.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const number=s=>s.split('/')[0].trim().replace(/^0+(?=\d)/,'').toLowerCase();
 const aliases={'en:30th-c':24837};
